@@ -1,7 +1,7 @@
 # 环境搭建指南（四件套）
 
 > 目标：装好数据分析工作环境。**预计 1.5–2 小时**，建议分两次做：前三个 40 分钟，MySQL 单独留 40 分钟。
-> 推荐顺序：**Miniconda → VS Code → Power BI → MySQL**（前三个快，MySQL 最折腾放最后）
+> 推荐顺序：**Miniconda → PyCharm → Power BI → MySQL**（前三个快，MySQL 最折腾放最后）
 
 ---
 
@@ -10,7 +10,7 @@
 | # | 工具 | 作用 | 官方地址 | 耗时 |
 |---|---|---|---|---|
 | 1 | **Miniconda** | Python 环境管家 | https://repo.anaconda.com/miniconda/ | 10 min |
-| 2 | **VS Code** | 写代码的编辑器 | https://code.visualstudio.com/ | 10 min |
+| 2 | **PyCharm** | 写代码的 IDE | https://www.jetbrains.com/pycharm/download/ | 15 min |
 | 3 | **Power BI Desktop** | 做仪表板（免费） | https://aka.ms/pbidesktopstore | 15 min |
 | 4 | **MySQL 8** | 数据库（练 SQL） | https://dev.mysql.com/downloads/installer/ | 40 min |
 
@@ -41,7 +41,7 @@ https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
 |---|---|---|
 | Install for | **Just Me (recommended)** | 只给当前用户装，不需要管理员权限 |
 | Destination Folder | 默认即可 | ⚠️ **路径不能有空格或中文**。你的路径是 `C:\Users\36356\miniconda3`，没问题。如果想装到 E 盘，填 `E:\miniconda3` |
-| Advanced Options | 勾选 **Register Miniconda3 as my default Python** | 让 VS Code 能自动找到 Python |
+| Advanced Options | 勾选 **Register Miniconda3 as my default Python** | 让 PyCharm 等 IDE 能自动找到 Python |
 | Advanced Options | **取消勾选 "Add Miniconda3 to my PATH"** | 官方不建议勾（会让系统里出现一堆 Python 命令，容易冲突） |
 | Advanced Options | 勾选 **Clear the package cache upon completion** | 省空间 |
 
@@ -73,44 +73,90 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 ---
 
-## 2. VS Code（编辑器）
+## 2. PyCharm（写代码的 IDE）
 
-### 下载
+> **先确认一件事**：你的 PyCharm 是 Community 还是 Professional？
+> 打开 PyCharm → 菜单 **Help → About**，看标题里有没有 "Professional" 字样。
+
+### 两个版本的差别（重点：学生可以免费拿 Pro）
+
+| 功能 | Community（免费） | Professional（学生免费） |
+|---|---|---|
+| 写 Python / pandas 脚本 | ✅ | ✅ |
+| **Database 工具**（在 IDE 里直接连 MySQL 写 SQL） | ❌ | ✅ |
+| Jupyter 完整支持 / 科学模式 | 有限 | ✅ |
+| Web 框架、远程开发 | ❌ | ✅ |
+
+**Community 完全够用**——练 SQL 用 MySQL Workbench（第 4 步会装）也一样。
+**但 Professional 对学生免费，没理由不拿。**
+
+### 学生免费申请（建议花 10 分钟做掉）
+
+**新申请入口**（注意：续期入口不同）：
 
 ```
-https://code.visualstudio.com/
+https://www.jetbrains.com/shop/eform/students
 ```
 
-打开后点页面上大大的 **Download for Windows**（会自动识别你的系统）。
+表单里选一种申请方式：
 
-### 安装
+| 方式 | 需要什么 | 时效 |
+|---|---|---|
+| **大学电子邮件地址** | 学校域名邮箱（若在 JetBrains 数据库内） | 秒过 |
+| **官方文件** | 中国大陆学生须提供**学信网学籍验证报告**（PDF 版，含有效验证码）；学生证 / 在读证明可作辅助 | **1–2 周** |
+| **GITHUB** | 走 GitHub Student Developer Pack 渠道 | 视 GitHub 审批 |
+| ISIC / ITIC | 国际学生证 | 较快 |
 
-一路默认即可，但**建议勾选这几项**：
+**建议顺序**：先试学校邮箱（最快）→ 不行就下载学信网报告走"官方文件"，等 1–2 周。
+**等待期间先用 Community 版，完全不耽误学习。**
 
-- ✅ 将"通过 Code 打开"操作添加到 Windows 资源管理器文件上下文菜单
-- ✅ 将"通过 Code 打开"操作添加到 Windows 资源管理器目录上下文菜单
-- ✅ 添加到 PATH
+申请通过后：收到授权邮件 → 注册或绑定 [JetBrains Account](https://account.jetbrains.com.cn/login) → 在 PyCharm 里用该账号登录激活。
 
-### 装必备扩展（打开 VS Code 后）
+### 下载安装
 
-左侧图标栏点最下面那个方块图标（Extensions），搜索并安装：
+```
+https://www.jetbrains.com/pycharm/download/
+```
 
-| 扩展名 | 作用 |
-|---|---|
-| **Python**（Microsoft 出品） | Python 支持，必装 |
-| **Jupyter**（Microsoft 出品） | 跑 `.ipynb` 笔记本，必装 |
-| **Chinese (Simplified) Language Pack** | 界面汉化，可选 |
+页面分 Community / Professional 两栏，按你的授权情况下载。安装时建议勾选：
+
+- ✅ Create Desktop Shortcut（桌面快捷方式）
+- ✅ Update PATH Variable（更新环境变量）
+- ✅ .py 文件关联
+
+### 关键配置：让 PyCharm 用上 Miniconda 的环境（必做）
+
+**这一步不做，你在 Miniconda 里装的 pandas，PyCharm 根本找不到。**
+
+1. 打开 PyCharm → **New Project**
+2. **Location** 选工作目录，例如 `E:\code\sc-practice`
+3. 展开 **Python Interpreter** → 选 **Add Interpreter → Add Local Interpreter**
+4. 左侧选 **Conda**
+5. **Conda executable** 填：
+   ```
+   C:\Users\36356\miniconda3\Scripts\conda.exe
+   ```
+   （装到别的路径就换成对应路径）
+6. 勾选 **Use existing environment** → 下拉选 **sc**
+7. 点 **OK → Create**
+
+> 第 6 步下拉里看不到 `sc`，说明还没创建环境。先回 Anaconda Prompt 执行：
+> ```
+> conda create -n sc python=3.12 -y
+> ```
 
 ### 验证
 
-新建一个文件 `test.py`，写：
+在 PyCharm 里新建 `test.py`：
 
 ```python
-print("hello")
+import pandas as pd
+print("pandas 版本:", pd.__version__)
 ```
 
-按 `Ctrl+F5` 运行，下方终端出现 `hello` = 成功。
-右下角状态栏应该显示 Python 解释器（会带 `miniconda3` 字样）。
+右键 → **Run 'test'**。下方控制台显示 `pandas 版本: 2.x.x` = 成功。
+
+> 如果报 `ModuleNotFoundError: No module named 'pandas'` → **解释器选错了**（选到 base 或系统 Python 了），回上面第 3–6 步重选 `sc` 环境。
 
 ---
 
@@ -217,7 +263,7 @@ SELECT VERSION();
 
 - [ ] **Miniconda**：Anaconda Prompt 里 `conda --version` 有输出
 - [ ] **pip 换源**：`pip config list` 显示清华源地址
-- [ ] **VS Code**：能新建 .py 文件并运行出结果
+- [ ] **PyCharm**：解释器指向 `sc` 环境，运行 `import pandas` 不报错
 - [ ] **Power BI**：能打开，About 里能看到版本号
 - [ ] **MySQL**：Workbench 能连接并执行 `SELECT VERSION();`
 
@@ -233,7 +279,7 @@ SELECT VERSION();
 | Power BI 界面显示不全 | 屏幕缩放不是 100% | 设置 → 系统 → 显示 → 缩放改 100% |
 | MySQL 装完连不上 | 服务未启动 | Windows 服务里启动 `MySQL80` |
 | MySQL 忘记 root 密码 | —— | 需重装，所以**现在就记下来** |
-| VS Code 找不到 Python | 解释器没选 | 右下角点解释器 → 选带 `miniconda3` 的那个 |
+| PyCharm 报 `No module named 'pandas'` | 解释器选错（选到 base 或系统 Python） | 重选 `sc` 环境（见第 2 节配置步骤） |
 
 ---
 
