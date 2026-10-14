@@ -1,0 +1,30 @@
+# 供应链数据分析项目集 · Python 依赖
+# 用法：pip install -r requirements.txt
+# 说明：初期只装 pandas 系列；做到对应项目时再放开注释，避免一次装太多。
+
+# ---- 数据处理 ----
+pandas>=2.0
+numpy>=1.24
+
+# ---- 可视化 ----
+matplotlib>=3.7
+seaborn>=0.12
+
+# ---- Notebook ----
+jupyter>=1.0
+
+# ---- 统计与时间序列（项目 2 用）----
+# scipy>=1.11
+# statsmodels>=0.14
+# prophet>=1.1
+
+# ---- 机器学习（项目 2 用）----
+# scikit-learn>=1.3
+# lightgbm>=4.0
+
+# ---- 运筹优化（项目 3 用）----
+# ortools>=9.7
+
+# ---- 数据库连接 ----
+# sqlalchemy>=2.0
+# pymysql>=1.1
